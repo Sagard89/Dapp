@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DTE - Distributed Token Exchange</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <script src="./app.js"></script>
+</head>
+<body>
+	<nav class="navbar navbar-expand-xl navbar-dark bg-dark">
+
+      <a class="navbar-brand" href="#"><img src="/app/resources/th.jpg" width="30" height="30"/>change</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample06" aria-controls="navbarsExample06" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExample06">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Managetoken</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/trading.html">Trading</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="dropdown06" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown06">
+              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal" onclick="App.applyGas();return false;">Increase the Gas</a>
+              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal1">Switch account</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-md-0">
+          <input class="form-control" type="text" placeholder="Search">
+        </form>
+      </div>
+    </nav>
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-lg-10">
+
+            <h1>Manage Token</h1>
+            <p>This page is intended for the FIXED Token as sample only. You can send token and you can approve token.
+                <br/>
+                Additionally you can add a token to the exchange provided in this example.</p>
+            <h3>You have <span class="black"><span id="balanceTokenInToken"></span> TOKEN</span> in your account</h3>
+
+            <br>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="panel panel-default panel-primary">
+                        <div class="panel-heading">Send Token</div>
+                        <div class="panel-body">
+
+                            <form>
+                                <div class="form-group">
+                                    <label for="inputAmountSendToken">Amount in Token</label>
+                                    <input type="number" name="inputAmountSendToken" class="form-control"
+                                           id="inputAmountSendToken" placeholder="e.g., 95">
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputBeneficiarySendToken">To (address)</label>
+                                    <input type="text" class="form-control" id="inputBeneficiarySendToken"
+                                           name="inputBeneficiarySendToken" placeholder="e.g. 0x123ABde44...">
+                                </div>
+                                <button type="button" class="btn btn-default" onclick="App.sendToken();return false;">
+                                    Send Token
+                                </button>
+                            </form>
+
+                        </div>
+                        <div class="panel-footer">Directly send a token from your address to another address.</div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="panel panel-default panel-primary">
+                        <div class="panel-heading">Approve Token Allowance</div>
+                        <div class="panel-body">
+                            <form>
+                                <div class="form-group">
+                                    <label for="inputAmountAllowanceToken">Amount in Token</label>
+                                    <input type="number" name="inputAmountAllowanceToken" class="form-control"
+                                           id="inputAmountAllowanceToken" placeholder="e.g., 95">
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputBeneficiaryAllowanceToken">To (address)</label>
+                                    <input type="text" class="form-control" id="inputBeneficiaryAllowanceToken"
+                                           name="inputBeneficiaryAllowanceToken" placeholder="e.g. 0x123ABde44...">
+                                </div>
+                                <button type="button" class="btn btn-default"
+                                        onclick="App.allowanceToken();return false;">Allow Token to be used
+                                </button>
+                            </form>
+                        </div>
+                        <div class="panel-footer">Approve the address <i>to be allowed</i> to send a token from your
+                            address to another address. This is important for the Exchange. When you fund the token in
+                            the exchange then it will deduct in your name the token from your address to the token
+                            address.
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            <br>
+            <div class="panel panel-default">
+                <div class="panel-heading">Add Token to Exchange</div>
+                <div class="panel-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="inputNameTokenAddExchange">Name of the Token</label>
+                            <input type="text" name="inputNameTokenAddExchange" class="form-control"
+                                   id="inputNameTokenAddExchange" placeholder="FIXED">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputAddressTokenAddExchange">Address of Token</label>
+                            <input type="text" class="form-control" id="inputAddressTokenAddExchange"
+                                   name="inputAddressTokenAddExchange" placeholder="e.g. 0x123ABde44...">
+                        </div>
+                        <button type="button" class="btn btn-default" onclick="App.addTokenToExchange();return false;">
+                            Add Token to Exchange
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-lg-2" style="background-color: #eee; min-height: 100vh;">
+            <h3>Events from the Token Contract</h3>
+            <div id="tokenEvents"></div>
+            <h3>Status from our Javascript</h3>
+            <span id="status"></span>
+            <h3>Important Information</h3>
+            <span id="importantInformation"></span>
+        </div>
+        </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Increase the Gas <img src="/app/resources/gas.png" width="30" height="30"/></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      	<div class="row">
+           <div class="col-lg-12">
+              <input type="text" id="txtIncreaseGas"/>
+           </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="App.increaseGas();return false;">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel1">Switch account</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      	<div class="row">
+      		<div class="col-lg-12">
+      			<span>Current Account: <label id="currentAccount"></label></span>
+      		</div>
+      	</div>
+      	<div class="row">
+           <div class="col-lg-12">
+              <select id="selectAccounts">
+              	
+              </select>
+           </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="App.selectAccount();return false;">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
